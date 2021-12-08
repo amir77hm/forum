@@ -28,9 +28,9 @@ export default {
 
   created() {
     this.$store.dispatch("fetchCategory", { id: this.id }).then((category) => {
-      // this.$store.dispatch("fetchForums", {
-      //   ids: category.forums,
-      // });
+      this.$store.dispatch("fetchForums", {
+        ids: category.forums,
+      });
     });
   },
 };

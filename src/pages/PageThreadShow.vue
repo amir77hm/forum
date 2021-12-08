@@ -18,7 +18,7 @@
         style="float: right; margin-top: 2px"
         class="hide-mobile text-faded text-small"
       >
-        3 replies by 3 contributors
+        {{ repliceCount }} replies by {{ contributorsCount }} contributors
       </span>
     </p>
     <PostList :posts="posts" />
@@ -57,6 +57,9 @@ export default {
     contributorsCount() {
       return countObjectProperties(this.thread.contributors);
     },
+    repliceCount() {
+      return countObjectProperties(this.thread.posts) - 1;
+    },
   },
 
   methods: {
@@ -77,14 +80,6 @@ export default {
             this.$store.dispatch("fetchUser", { id: post.userId });
           });
         });
-
-      // Object.keys(thread.posts).forEach((postId) => {
-      //   // fetch post
-      //   this.$store.dispatch("fetchPost", { id: postId }).then((post) => {
-      //     // fetch user
-
-      //   });
-      // });
     });
   },
 };

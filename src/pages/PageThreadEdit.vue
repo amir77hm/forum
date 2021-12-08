@@ -1,11 +1,11 @@
 <template>
-  <div class="col-full push-top">
+  <div v-if="thread && firstPost" class="col-full push-top">
     <h1>
       Editing <i>{{ thread.title }}</i>
     </h1>
 
     <ThreadEditor
-      :text="text"
+      :text="firstPost.text"
       :title="thread.title"
       @save="save"
       @cancel="cancel"
@@ -31,12 +31,9 @@ export default {
     thread() {
       return this.$store.state.threads[this.id];
     },
-    text() {
-      return this.$store.state.posts[this.thread.firstPostId].text;
+    firstPost() {
+      return this.$store.state.posts[this.thread.firstPostId];
     },
-    // firstPost() {
-    //   return this.$store.state.posts[this.thread.firstPostId ];
-    // },
   },
   methods: {
     save({ title, text }) {
@@ -61,6 +58,12 @@ export default {
         },
       });
     },
+  },
+
+  created() {
+    this.$store.dispatch("fetchThread", { id: this.id }).then((thread) => {
+      this.$store.dispatch("fetchPost", { id: thread.firstPostId });
+    });
   },
 };
 </script>

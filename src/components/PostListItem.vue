@@ -37,9 +37,9 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import PostEditor from "@/components/PostEditor";
 
-// console.log(this.post);
 export default {
   props: {
     post: {
@@ -54,12 +54,16 @@ export default {
     return { editing: false };
   },
 
+  methods: {
+    ...mapGetters(["userPostCount"]),
+  },
+
   computed: {
     user() {
       return this.$store.state.users[this.post.userId];
     },
     userPostsCount() {
-      return this.$store.getters.userPostCount(this.post.userId);
+      this.userPostCount(this.post.userId);
     },
   },
 };

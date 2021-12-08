@@ -1,5 +1,5 @@
 <template>
-  <header class="header" id="header">
+  <header v-if="user" class="header" id="header">
     <router-link :to="{ name: 'Home' }" class="logo">
       <img src="@/assets/img/svg/vueschool-logo.svg" />
     </router-link>
@@ -15,10 +15,10 @@
     <nav class="navbar">
       <ul>
         <li class="navbar-user">
-          <router-link :to="{name:'Profile'}">
+          <router-link :to="{ name: 'Profile' }">
             <img class="avatar-small" :src="user.avatar" alt="" />
             <span>
-              {{user.name}}
+              {{ user.name }}
               <img
                 class="icon-profile"
                 src="assets/img/svg/arrow-profile.svg"
